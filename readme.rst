@@ -68,3 +68,33 @@ Acknowledgement
 
 The CodeIgniter team would like to thank EllisLab, all the
 contributors to the CodeIgniter project and you, the CodeIgniter user.
+
+*************************
+Remove Index.php from URL
+*************************
+
+Try the following
+
+Open config.php and do following replaces
+
+$config['index_page'] = "index.php"
+to
+
+$config['index_page'] = ""
+In some cases the default setting for uri_protocol does not work properly. Just replace
+
+$config['uri_protocol'] ="AUTO"
+by
+
+$config['uri_protocol'] = "REQUEST_URI"
+.htaccess
+
+RewriteEngine on
+RewriteCond $1 !^(index\.php|resources|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA] 
+Note: .htaccess code vary depending on hosting server. In some hosting server (e.g.: Godaddy) need to use an extra ? in the last line of above code. The following line will be replaced with last line in applicable case:
+
+// Replace last .htaccess line with this line
+RewriteRule ^(.*)$ index.php?/$1 [L,QSA] 
