@@ -1,0 +1,23 @@
+<?php
+
+class News extends CI_Controller{
+  
+  public function __construct(){
+    parent::__construct();
+    $this->load->model('news_model');
+    $this->load->helper('url_helper');
+  }
+  
+  public function index($slug = FALSE, $title = FALSE){
+    echo 'Slug: '.$slug.' Title: '.$title;
+    $data['news'] = $this->news_model->get_news($slug, $title);
+    $data['title'] = 'News Archive';
+    
+    $this->load->view('templates/header', $data);
+    $this->load->view('news/index', $data);
+    $this->load->view('templates/footer', $data);
+  }
+  
+}
+
+?>
