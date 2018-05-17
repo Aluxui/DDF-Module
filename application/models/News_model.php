@@ -22,6 +22,16 @@
       return $query->row_array();
     }
     
+    public function set_news(){
+      $this->load->helper('url');
+      $data = array(
+        'title' => $this->input->post('title'),
+        'slug' => url_title($this->input->post('title'), 'dash', TRUE),
+        'text' => $this->input->post('text')
+      );
+      return $this->db->insert('news', $data);
+    }
+    
   }
 
 ?>
